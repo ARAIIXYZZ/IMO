@@ -1,69 +1,45 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Single Mom</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exclusive Dating</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="page" id="page">
-    <header class="top-bar">
-      <div class="title">Single Mom</div>
-    </header>
-
-    <main class="content">
-      <!-- background image area (optional decorative) -->
-      <div class="bg-decor" aria-hidden="true"></div>
-
-      <!-- profile circle -->
-      <div class="profile-wrap">
-        <div class="profile-circle">
-          <img src="profile.jpg" alt="Foto profil" id="profileImage" />
+    <div class="content">
+        <div class="profile-container">
+            <img src="profile.jpg" alt="Profile" class="profile-img pulse floating">
         </div>
-      </div>
+        
+        <div class="buttons-container">
+            <a href="https://rnebgl.dremmatch.com/?utm_source=da57dc555e50572d&ban=other&j1=1&s1=241621&s2=2174989&s3=ARAIIXYZZ" class="btn btn-private" data-link-type="private">
+                <i class="fas fa-play-circle"></i> PRIVATE VIDEO
+            </a>
+            
+            <a href="https://rnwklm.dremluv.com/?utm_source=da57dc555e50572d&ban=inst&j1=1&s1=232072&s2=2157823&s3=ARAIIXYZZ" class="btn btn-whatsapp" data-link-type="whatsapp">
+                <i class="fab fa-whatsapp"></i> WHATSAPP
+            </a>
+            
+            <a href="https://t.me/datingcht" class="btn btn-telegram" data-link-type="telegram">
+                <i class="fab fa-telegram"></i> TELEGRAM
+            </a>
+        </div>
+    </div>
+    
+    <div class="footer">
+        &copy; 2025 Exclusive Dating. All rights reserved.
+    </div>
 
-      <!-- buttons block -->
-      <div class="buttons">
-        <button class="btn btn-video" id="btnVideo" aria-label="Private Video">
-          <span class="icon play" aria-hidden="true">
-            <!-- simple play icon -->
-            <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg" focusable="false">
-              <path fill="currentColor" d="M6 4l14 8-14 8z"/>
-            </svg>
-          </span>
-          <span class="btn-text">PRIVATE VIDEO</span>
-        </button>
+    <div id="redirectOverlay" class="redirect-overlay">
+        <div class="redirect-message">
+            <h3>Redirecting to Next Offer...</h3>
+            <div class="loading-spinner"></div>
+            <p>You'll be redirected in <span id="countdown">3</span> seconds</p>
+        </div>
+    </div>
 
-        <button class="btn btn-whatsapp" id="btnWA" aria-label="WhatsApp">
-          <span class="icon wa" aria-hidden="true">
-            <!-- whatsapp-like icon (stylized) -->
-            <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg" focusable="false">
-              <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12c0 2.1.62 4.05 1.69 5.7L2 22l4.49-1.62A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zM8.6 8.9c.2-.1.46-.15.8-.15.21 0 .43.02.66.05.2.03.43.07.7.12.4.07.86.3 1.32.6.45.3.82.68 1.02 1.08.2.41.25.86.16 1.27-.09.42-.33.86-.72 1.35-.4.5-.86.86-1.24 1.07-.37.22-.76.33-1.13.33-.22 0-.45-.02-.68-.06l-.94-.17c-.31-.05-.55-.09-.73-.09-.43 0-.86.19-1.32.55-.48.37-.93.84-1.32 1.41l-.72-.72c.44-.9 1.06-1.64 1.84-2.2.73-.52 1.4-.87 1.98-1.05.37-.11.69-.2.95-.28.26-.08.44-.15.55-.21.14-.07.2-.16.2-.26 0-.12-.06-.24-.17-.36-.12-.12-.29-.24-.52-.37-.22-.13-.45-.24-.66-.35-.38-.19-.69-.37-.94-.54-.24-.17-.36-.36-.36-.6 0-.28.1-.5.3-.64z"/>
-            </svg>
-          </span>
-          <span class="btn-text">WHATSAPP</span>
-        </button>
-
-        <button class="btn btn-telegram" id="btnTG" aria-label="Telegram">
-          <span class="icon tg" aria-hidden="true">
-            <!-- telegram-like paper plane icon -->
-            <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg" focusable="false">
-              <path fill="currentColor" d="M21 3L3 10.5l4 1.5L18 7l-7 7 1.5 4z"/>
-            </svg>
-          </span>
-          <span class="btn-text">TELEGRAM</span>
-        </button>
-      </div>
-
-      <div class="footer-decor" aria-hidden="true"></div>
-    </main>
-
-    <footer class="bottom-bar" role="contentinfo">
-      <div class="title">Single Mom</div>
-    </footer>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
