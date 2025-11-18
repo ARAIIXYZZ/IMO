@@ -1,4 +1,4 @@
-// Simple interactive effects without redirect logic
+// Simple interactive effects
 document.addEventListener('DOMContentLoaded', function() {
     const buttons = document.querySelectorAll('.btn');
     const profileImg = document.querySelector('.profile-img');
