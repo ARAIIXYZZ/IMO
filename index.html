@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Exclusive Dating</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -11,9 +11,15 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
         html {
             height: 100%;
+            overflow: hidden;
         }
         body {
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('background.jpg');
@@ -22,14 +28,18 @@
             background-attachment: fixed;
             background-repeat: no-repeat;
             color: #fff;
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 20px;
             text-align: center;
-            overflow-x: hidden;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
         }
         .content {
             display: flex;
@@ -38,6 +48,8 @@
             justify-content: center;
             width: 100%;
             max-width: 600px;
+            position: relative;
+            z-index: 2;
         }
         .profile-container {
             margin-bottom: 30px;
@@ -210,6 +222,15 @@
             width: 100%;
             text-align: center;
         }
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
         .heart {
             position: absolute;
             width: 20px;
@@ -218,7 +239,6 @@
             transform: rotate(45deg);
             opacity: 0;
             pointer-events: none;
-            z-index: 1000;
         }
         .heart:before, .heart:after {
             content: '';
@@ -261,9 +281,22 @@
             .text-content h2 { font-size: 1rem; }
             .text-content p { font-size: 0.9rem; }
         }
+        
+        /* Prevent zoom and scrolling */
+        body {
+            touch-action: manipulation;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Hide scrollbars */
+        ::-webkit-scrollbar {
+            display: none;
+        }
     </style>
 </head>
 <body>
+    <div class="hearts-container" id="heartsContainer"></div>
+    
     <div class="content">
         <div class="profile-container">
             <img src="profile.jpg" alt="Profile" class="profile-img pulse floating">
@@ -305,7 +338,26 @@
         document.addEventListener('DOMContentLoaded', function() {
             const buttons = document.querySelectorAll('.btn');
             const profileImg = document.querySelector('.profile-img');
+            const heartsContainer = document.getElementById('heartsContainer');
             
+            // Prevent zoom and scrolling
+            document.addEventListener('touchmove', function(e) {
+                e.preventDefault();
+            }, { passive: false });
+            
+            document.addEventListener('gesturestart', function(e) {
+                e.preventDefault();
+            });
+            
+            document.addEventListener('gesturechange', function(e) {
+                e.preventDefault();
+            });
+            
+            document.addEventListener('gestureend', function(e) {
+                e.preventDefault();
+            });
+            
+            // Button interactions
             buttons.forEach(button => {
                 button.addEventListener('mouseenter', function() {
                     this.style.transform = 'translateY(-5px)';
@@ -333,6 +385,7 @@
                 });
             });
             
+            // Profile image interaction
             profileImg.addEventListener('mouseenter', function() {
                 this.style.transform = 'scale(1.08)';
             });
@@ -340,6 +393,7 @@
                 this.style.transform = 'scale(1)';
             });
             
+            // Heart animation function
             function createHeart() {
                 const heart = document.createElement('div');
                 heart.classList.add('heart');
@@ -351,21 +405,24 @@
                 heart.style.top = window.innerHeight + 20 + 'px';
                 heart.style.animation = `float-heart ${duration}s linear forwards`;
                 
-                document.body.appendChild(heart);
+                heartsContainer.appendChild(heart);
                 
                 setTimeout(() => {
                     heart.remove();
                 }, duration * 1000);
             }
             
+            // Initial hearts
             for (let i = 0; i < 15; i++) {
                 setTimeout(() => {
                     createHeart();
                 }, i * 500);
             }
             
+            // Continuous hearts
             setInterval(createHeart, 1000);
             
+            // Fix background
             function fixBackground() {
                 const body = document.querySelector('body');
                 body.style.backgroundAttachment = 'fixed';
@@ -374,7 +431,23 @@
             }
             
             fixBackground();
-            window.addEventListener('resize', fixBackground);
+            
+            // Prevent context menu
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+            });
+        });
+        
+        // Disable zoom with keyboard
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '0')) {
+                e.preventDefault();
+            }
+        });
+        
+        // Force no-scroll on resize
+        window.addEventListener('resize', function() {
+            window.scrollTo(0, 0);
         });
     </script>
 </body>
