@@ -20,13 +20,9 @@
             user-zoom: none;
         }
         body {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('background.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
             color: #fff;
             position: relative;
+            overflow-y: auto;
         }
         .background-lock {
             position: fixed;
@@ -270,6 +266,21 @@
             0% { transform: translateY(100vh) rotate(45deg); opacity: 1; }
             100% { transform: translateY(-100px) rotate(45deg); opacity: 0; }
         }
+        .extra-space {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+        .extra-space h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: white;
+            font-weight: 600;
+        }
         @media (max-width: 768px) {
             .profile-img { width: 180px; height: 180px; }
             .text-content h2 { font-size: 1.3rem; white-space: normal; line-height: 1.2; }
@@ -291,12 +302,12 @@
             .text-content h2 { font-size: 1rem; }
             .text-content p { font-size: 0.9rem; }
         }
-        /* Disable zoom on mobile */
-        @media (max-width: 768px) {
-            body {
-                -webkit-text-size-adjust: none;
-                touch-action: pan-y;
-            }
+        /* Disable text selection */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
     </style>
 </head>
@@ -341,13 +352,54 @@
                 </a>
             </div>
         </div>
-        
+        </div>
+    </div>
+        </div>
         <div class="footer">
             &copy; All rights reserved.
         </div>
     </div>
 
     <script>
+        // Proteksi dari F12 dan klik kanan
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        document.addEventListener('keydown', function(e) {
+            // Block F12
+            if (e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+            // Block Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+Shift+J
+            if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'C' || e.key === 'J')) {
+                e.preventDefault();
+                return false;
+            }
+            // Block Ctrl+U (view source)
+            if (e.ctrlKey && e.key === 'u') {
+                e.preventDefault();
+                return false;
+            }
+            // Block zoom dengan keyboard
+            if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '0')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Proteksi dari developer tools
+        setInterval(function() {
+            const before = new Date().getTime();
+            debugger;
+            const after = new Date().getTime();
+            if (after - before > 100) {
+                window.location.reload();
+            }
+        }, 1000);
+
         document.addEventListener('DOMContentLoaded', function() {
             const buttons = document.querySelectorAll('.btn');
             const profileImg = document.querySelector('.profile-img');
@@ -389,18 +441,20 @@
                 this.style.transform = 'scale(1)';
             });
             
-            // Heart creation function
+            // Heart creation function dengan animasi lebih lambat
             function createHeart() {
                 const heart = document.createElement('div');
                 heart.classList.add('heart');
                 
                 const startX = Math.random() * window.innerWidth;
-                const duration = Math.random() * 3 + 2;
+                const duration = Math.random() * 5 + 8; // Lebih lambat: 8-13 detik
                 const size = Math.random() * 15 + 10;
+                const opacity = Math.random() * 0.5 + 0.3;
                 
                 heart.style.width = size + 'px';
                 heart.style.height = size + 'px';
                 heart.style.left = startX + 'px';
+                heart.style.opacity = opacity;
                 heart.style.animation = `float-heart ${duration}s linear forwards`;
                 
                 heartsContainer.appendChild(heart);
@@ -413,16 +467,16 @@
             }
             
             // Initial hearts
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 10; i++) {
                 setTimeout(() => {
                     createHeart();
-                }, i * 500);
+                }, i * 1500); // Jarak lebih lama antara hati
             }
             
-            // Continuous hearts
-            setInterval(createHeart, 1000);
+            // Continuous hearts dengan interval lebih lama
+            setInterval(createHeart, 3000);
             
-            // Disable zoom and other unwanted behaviors
+            // Disable zoom dan behavior tidak diinginkan
             document.addEventListener('gesturestart', function(e) {
                 e.preventDefault();
             });
@@ -443,18 +497,6 @@
             
             fixBackground();
             window.addEventListener('resize', fixBackground);
-        });
-        
-        // Prevent zoom with keyboard
-        document.addEventListener('keydown', function(e) {
-            if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '0')) {
-                e.preventDefault();
-            }
-        });
-        
-        // Disable context menu
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
         });
     </script>
 </body>
