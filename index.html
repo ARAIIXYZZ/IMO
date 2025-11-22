@@ -11,15 +11,13 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
         }
-        html {
+        html, body {
             height: 100%;
-            overflow: hidden;
+            overflow-x: hidden;
+            touch-action: pan-y;
+            -webkit-user-zoom: none;
+            user-zoom: none;
         }
         body {
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('background.jpg');
@@ -28,18 +26,40 @@
             background-attachment: fixed;
             background-repeat: no-repeat;
             color: #fff;
-            height: 100vh;
+            position: relative;
+        }
+        .background-lock {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8)), url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .content-wrapper {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 20px;
             text-align: center;
-            overflow: hidden;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
+            position: relative;
+            z-index: 1;
         }
         .content {
             display: flex;
@@ -48,8 +68,6 @@
             justify-content: center;
             width: 100%;
             max-width: 600px;
-            position: relative;
-            z-index: 2;
         }
         .profile-container {
             margin-bottom: 30px;
@@ -222,15 +240,6 @@
             width: 100%;
             text-align: center;
         }
-        .hearts-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
         .heart {
             position: absolute;
             width: 20px;
@@ -239,6 +248,7 @@
             transform: rotate(45deg);
             opacity: 0;
             pointer-events: none;
+            z-index: -1;
         }
         .heart:before, .heart:after {
             content: '';
@@ -257,7 +267,7 @@
             left: -10px;
         }
         @keyframes float-heart {
-            0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+            0% { transform: translateY(100vh) rotate(45deg); opacity: 1; }
             100% { transform: translateY(-100px) rotate(45deg); opacity: 0; }
         }
         @media (max-width: 768px) {
@@ -268,7 +278,7 @@
             .btn-icon { font-size: 1.6rem; }
         }
         @media (max-width: 480px) {
-            body { padding: 15px; }
+            .content-wrapper { padding: 15px; }
             .profile-img { width: 150px; height: 150px; }
             .text-content { margin: 15px 0; }
             .text-content h2 { font-size: 1.1rem; white-space: normal; line-height: 1.2; }
@@ -281,57 +291,60 @@
             .text-content h2 { font-size: 1rem; }
             .text-content p { font-size: 0.9rem; }
         }
-        
-        /* Prevent zoom and scrolling */
-        body {
-            touch-action: manipulation;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        /* Hide scrollbars */
-        ::-webkit-scrollbar {
-            display: none;
+        /* Disable zoom on mobile */
+        @media (max-width: 768px) {
+            body {
+                -webkit-text-size-adjust: none;
+                touch-action: pan-y;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Background yang dikunci -->
+    <div class="background-lock"></div>
+    
+    <!-- Container untuk efek hati -->
     <div class="hearts-container" id="heartsContainer"></div>
     
-    <div class="content">
-        <div class="profile-container">
-            <img src="profile.jpg" alt="Profile" class="profile-img pulse floating">
-            <div class="text-content">
-                <h2>FREE LIVE CHATS & GIRLS TOTALLY 100% FREE!</h2>
-                <p>‼️CONFIRM YOUR EMAIL AND START CHAT ✉️</p>
-                <div class="arrow-down">
-                    <i class="fas fa-chevron-down"></i>
+    <!-- Konten utama -->
+    <div class="content-wrapper">
+        <div class="content">
+            <div class="profile-container">
+                <img src="profile.jpg" alt="Profile" class="profile-img pulse floating">
+                <div class="text-content">
+                    <h2>FREE LIVE CHATS & GIRLS TOTALLY 100% FREE!</h2>
+                    <p>‼️CONFIRM YOUR EMAIL AND START CHAT ✉️</p>
+                    <div class="arrow-down">
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
                 </div>
+            </div>
+            
+            <div class="buttons-container">
+                <a href="https://rnebgl.dremmatch.com/?utm_source=da57dc555e50572d&ban=other&j1=1&s1=241621&s2=2174989&s3=ARAIIXYZZ" class="btn">
+                    <div class="btn-content">
+                        <div class="btn-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <div class="btn-text">PRIVATE VIDEO</div>
+                    </div>
+                </a>
+                
+                <a href="https://rnwklm.dremluv.com/?utm_source=da57dc555e50572d&ban=inst&j1=1&s1=232072&s2=2157823&s3=ARAIIXYZZ" class="btn">
+                    <div class="btn-content">
+                        <div class="btn-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="btn-text">WHATSAPP</div>
+                    </div>
+                </a>
             </div>
         </div>
         
-        <div class="buttons-container">
-            <a href="https://rnebgl.dremmatch.com/?utm_source=da57dc555e50572d&ban=other&j1=1&s1=241621&s2=2174989&s3=ARAIIXYZZ" class="btn">
-                <div class="btn-content">
-                    <div class="btn-icon">
-                        <i class="fas fa-play-circle"></i>
-                    </div>
-                    <div class="btn-text">PRIVATE VIDEO</div>
-                </div>
-            </a>
-            
-            <a href="https://rnwklm.dremluv.com/?utm_source=da57dc555e50572d&ban=inst&j1=1&s1=232072&s2=2157823&s3=ARAIIXYZZ" class="btn">
-                <div class="btn-content">
-                    <div class="btn-icon">
-                        <i class="fab fa-whatsapp"></i>
-                    </div>
-                    <div class="btn-text">WHATSAPP</div>
-                </div>
-            </a>
+        <div class="footer">
+            &copy; All rights reserved.
         </div>
-    </div>
-    
-    <div class="footer">
-        &copy; All rights reserved.
     </div>
 
     <script>
@@ -340,24 +353,7 @@
             const profileImg = document.querySelector('.profile-img');
             const heartsContainer = document.getElementById('heartsContainer');
             
-            // Prevent zoom and scrolling
-            document.addEventListener('touchmove', function(e) {
-                e.preventDefault();
-            }, { passive: false });
-            
-            document.addEventListener('gesturestart', function(e) {
-                e.preventDefault();
-            });
-            
-            document.addEventListener('gesturechange', function(e) {
-                e.preventDefault();
-            });
-            
-            document.addEventListener('gestureend', function(e) {
-                e.preventDefault();
-            });
-            
-            // Button interactions
+            // Button effects
             buttons.forEach(button => {
                 button.addEventListener('mouseenter', function() {
                     this.style.transform = 'translateY(-5px)';
@@ -393,22 +389,26 @@
                 this.style.transform = 'scale(1)';
             });
             
-            // Heart animation function
+            // Heart creation function
             function createHeart() {
                 const heart = document.createElement('div');
                 heart.classList.add('heart');
                 
                 const startX = Math.random() * window.innerWidth;
                 const duration = Math.random() * 3 + 2;
+                const size = Math.random() * 15 + 10;
                 
+                heart.style.width = size + 'px';
+                heart.style.height = size + 'px';
                 heart.style.left = startX + 'px';
-                heart.style.top = window.innerHeight + 20 + 'px';
                 heart.style.animation = `float-heart ${duration}s linear forwards`;
                 
                 heartsContainer.appendChild(heart);
                 
                 setTimeout(() => {
-                    heart.remove();
+                    if (heart.parentNode) {
+                        heart.remove();
+                    }
                 }, duration * 1000);
             }
             
@@ -422,32 +422,39 @@
             // Continuous hearts
             setInterval(createHeart, 1000);
             
+            // Disable zoom and other unwanted behaviors
+            document.addEventListener('gesturestart', function(e) {
+                e.preventDefault();
+            });
+            
+            document.addEventListener('touchmove', function(e) {
+                if (e.scale !== 1) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+            
             // Fix background
             function fixBackground() {
-                const body = document.querySelector('body');
-                body.style.backgroundAttachment = 'fixed';
-                body.style.backgroundSize = 'cover';
-                body.style.backgroundPosition = 'center';
+                const backgroundLock = document.querySelector('.background-lock');
+                backgroundLock.style.backgroundAttachment = 'fixed';
+                backgroundLock.style.backgroundSize = 'cover';
+                backgroundLock.style.backgroundPosition = 'center';
             }
             
             fixBackground();
-            
-            // Prevent context menu
-            document.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-            });
+            window.addEventListener('resize', fixBackground);
         });
         
-        // Disable zoom with keyboard
+        // Prevent zoom with keyboard
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey && (e.key === '+' || e.key === '-' || e.key === '0')) {
                 e.preventDefault();
             }
         });
         
-        // Force no-scroll on resize
-        window.addEventListener('resize', function() {
-            window.scrollTo(0, 0);
+        // Disable context menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
         });
     </script>
 </body>
